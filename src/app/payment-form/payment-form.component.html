@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<section [formGroup]="form" class="form">
   <div
     class="input"
     [class.error]="
@@ -212,7 +212,7 @@
       </div>
 
       <div
-        class="input"
+        class="input exp-date"
         [class.error]="
           form.controls.ccNameOnCard.touched &&
           form.controls.ccNameOnCard.invalid
@@ -238,62 +238,64 @@
         </div>
       </div>
 
-      <div
-        class="input"
-        [class.error]="
-          form.controls.ccExpiration.touched &&
-          form.controls.ccExpiration.invalid
-        "
-      >
-        <label for="ccExpiration">Expiration Date</label>
-        <input
-          type="date"
-          id="ccExpiration"
-          formControlName="ccExpiration"
-          autocomplete="cc-exp"
-        />
+      <section class="exp-cvv">
         <div
-          class="error-message"
-          *ngIf="
+          class="input"
+          [class.error]="
             form.controls.ccExpiration.touched &&
             form.controls.ccExpiration.invalid
           "
         >
-          <p *ngIf="form.controls.ccExpiration.hasError('required')">
-            Expiration Date is required
-          </p>
+          <label for="ccExpiration">Expiration Date</label>
+          <input
+            type="date"
+            id="ccExpiration"
+            formControlName="ccExpiration"
+            autocomplete="cc-exp"
+          />
+          <div
+            class="error-message"
+            *ngIf="
+              form.controls.ccExpiration.touched &&
+              form.controls.ccExpiration.invalid
+            "
+          >
+            <p *ngIf="form.controls.ccExpiration.hasError('required')">
+              Expiration Date is required
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div
-        class="input"
-        [class.error]="
-          form.controls.ccCVV.touched && form.controls.ccCVV.invalid
-        "
-      >
-        <label for="ccCVV">CVV</label>
-        <input
-          type="tel"
-          id="ccCVV"
-          formControlName="ccCVV"
-          autocomplete="cc-csc"
-          maxlength="3"
-        />
         <div
-          class="error-message"
-          *ngIf="form.controls.ccCVV.touched && form.controls.ccCVV.invalid"
+          class="input cvv"
+          [class.error]="
+            form.controls.ccCVV.touched && form.controls.ccCVV.invalid
+          "
         >
-          <p *ngIf="form.controls.ccCVV.hasError('required')">
-            CVV is required
-          </p>
-          <p *ngIf="form.controls.ccCVV.hasError('pattern')">
-            CVV must contain only numbers
-          </p>
-          <p *ngIf="form.controls.ccCVV.hasError('minlength')">
-            CVV must be at least 3 digits
-          </p>
+          <label for="ccCVV">CVV</label>
+          <input
+            type="tel"
+            id="ccCVV"
+            formControlName="ccCVV"
+            autocomplete="cc-csc"
+            maxlength="3"
+          />
+          <div
+            class="error-message"
+            *ngIf="form.controls.ccCVV.touched && form.controls.ccCVV.invalid"
+          >
+            <p *ngIf="form.controls.ccCVV.hasError('required')">
+              CVV is required
+            </p>
+            <p *ngIf="form.controls.ccCVV.hasError('pattern')">
+              CVV must contain only numbers
+            </p>
+            <p *ngIf="form.controls.ccCVV.hasError('minlength')">
+              CVV must be at least 3 digits
+            </p>
+          </div>
         </div>
-      </div>
+      </section>
 
       <div class="helper">
         <p>Where can I find the CVV number?</p>
@@ -301,13 +303,13 @@
       </div>
     </ng-container>
   </ng-container>
+</section>
 
-  <button
-    type="button"
-    (click)="submit()"
-    tabindex="0"
-    [disabled]="this.form.invalid"
-  >
-    Make Payment
-  </button>
-</form>
+<button
+  type="button"
+  (click)="submit()"
+  tabindex="0"
+  [disabled]="this.form.invalid"
+>
+  Make Payment
+</button>
