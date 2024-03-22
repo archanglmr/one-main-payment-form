@@ -1,0 +1,123 @@
+<form [formGroup]="form">
+  <div
+    [class.error]="
+      form.controls.loanNumber.touched && form.controls.loanNumber.invalid
+    "
+  >
+    <label for="loanNumber">Loan Account Number</label>
+    <input type="number" id="loanNumber" formControlName="loanNumber" />
+  </div>
+  <div
+    [class.error]="
+      form.controls.accountType.touched && form.controls.accountType.invalid
+    "
+  >
+    <label>Type of Account:</label>
+
+    <span>
+      <input
+        type="radio"
+        id="accountTypeChecking"
+        formControlName="accountType"
+        [value]="AccountType.Checking"
+      />
+      <label for="accountTypeChecking" class="radio">Checking</label>
+    </span>
+
+    <span>
+      <input
+        type="radio"
+        id="accountTypeDebit"
+        formControlName="accountType"
+        [value]="AccountType.Debit"
+      />
+      <label for="accountTypeDebit" class="radio">Debit Card</label>
+    </span>
+  </div>
+
+  <ng-container [ngSwitch]="form.controls.accountType.value">
+    <ng-container *ngSwitchCase="AccountType.Checking">
+      <div
+        [class.error]="
+          form.controls.checkingRoutingNumber.touched &&
+          form.controls.checkingRoutingNumber.invalid
+        "
+      >
+        <label for="checkingRoutingNumber">Routing Number</label>
+        <input
+          type="number"
+          id="checkingRoutingNumber"
+          formControlName="checkingRoutingNumber"
+        />
+      </div>
+      <div
+        [class.error]="
+          form.controls.checkingBankAccountNumber.touched &&
+          form.controls.checkingBankAccountNumber.invalid
+        "
+      >
+        <label for="checkingBankAccountNumber">Bank Account Number</label>
+        <input
+          type="number"
+          id="checkingBankAccountNumber"
+          formControlName="checkingBankAccountNumber"
+        />
+      </div>
+      <div
+        [class.error]="
+          form.controls.checkingConfirmBankAccountNumber.touched &&
+          form.controls.checkingConfirmBankAccountNumber.invalid
+        "
+      >
+        <label for="checkingConfirmBankAccountNumber"
+          >Confirm Bank Account Number</label
+        >
+        <input
+          type="number"
+          id="checkingConfirmBankAccountNumber"
+          formControlName="checkingConfirmBankAccountNumber"
+        />
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="AccountType.Debit">
+      <div
+        [class.error]="
+          form.controls.ccCardNumber.touched &&
+          form.controls.ccCardNumber.invalid
+        "
+      >
+        <label for="ccCardNumber">Card Number</label>
+        <input type="number" id="ccCardNumber" formControlName="ccCardNumber" />
+      </div>
+      <div
+        [class.error]="
+          form.controls.ccNameOnCard.touched &&
+          form.controls.ccNameOnCard.invalid
+        "
+      >
+        <label for="ccNameOnCard">Name On Card</label>
+        <input type="text" id="ccNameOnCard" formControlName="ccNameOnCard" />
+      </div>
+      <div
+        [class.error]="
+          form.controls.ccExpiration.touched &&
+          form.controls.ccExpiration.invalid
+        "
+      >
+        <label for="ccExpiration">Expiration Date</label>
+        <input type="text" id="ccExpiration" formControlName="ccExpiration" />
+      </div>
+      <div
+        [class.error]="
+          form.controls.ccCVV.touched && form.controls.ccCVV.invalid
+        "
+      >
+        <label for="ccCVV">CVV</label>
+        <input type="number" id="ccCVV" formControlName="ccCVV" />
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <button type="button" (click)="submit()">Make Payment</button>
+</form>

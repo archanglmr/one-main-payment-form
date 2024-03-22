@@ -1,0 +1,69 @@
+:host {
+  display: block;
+}
+
+div {
+  border: 1px solid blue;
+  min-height: 58px;
+  padding: 9px 7px;
+  box-sizing: border-box;
+
+  &.error {
+    color: red;
+  }
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+
+  &.radio {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
+    vertical-align: middle;
+    margin: 0 0 0 5px;
+  }
+}
+
+input {
+  &[type="radio"]{
+    vertical-align: middle;
+  }
+
+  &:not([type="radio"]) {
+    width: 100%;
+    font-size: 14px;
+    line-height: 14px;
+    border: 1px solid #d8d8d8;
+    border-radius: 4px;
+  }
+}
+
+span {
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: middle;
+
+  &:not(:last-child) {
+    margin-right: 26px;
+  }
+}
+
+button {
+  margin-top: 21px;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #00a39e;
+
+  border: none;
+  color: white;
+  padding: 19px 48px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
