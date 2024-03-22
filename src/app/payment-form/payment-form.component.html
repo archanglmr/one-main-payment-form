@@ -1,13 +1,29 @@
 <form [formGroup]="form">
   <div
+    class="input"
     [class.error]="
       form.controls.loanNumber.touched && form.controls.loanNumber.invalid
     "
   >
     <label for="loanNumber">Loan Account Number</label>
-    <input type="number" id="loanNumber" formControlName="loanNumber" />
+    <input type="tel" id="loanNumber" formControlName="loanNumber" />
+    <div
+      class="error-message"
+      *ngIf="
+        form.controls.loanNumber.touched && form.controls.loanNumber.invalid
+      "
+    >
+      <p *ngIf="form.controls.loanNumber.hasError('required')">
+        Loan Account Number is required
+      </p>
+      <p *ngIf="form.controls.loanNumber.hasError('pattern')">
+        Loan Account Number must contain only numbers
+      </p>
+    </div>
   </div>
+
   <div
+    class="input"
     [class.error]="
       form.controls.accountType.touched && form.controls.accountType.invalid
     "
@@ -28,18 +44,30 @@
     <span>
       <input
         type="radio"
-        id="accountTypeDebit"
+        id="accountType"
         formControlName="accountType"
         [value]="AccountType.Debit"
         tabindex="0"
       />
-      <label for="accountTypeDebit" class="radio">Debit Card</label>
+      <label for="accountType" class="radio">Debit Card</label>
     </span>
+
+    <div
+      class="error-message"
+      *ngIf="
+        form.controls.accountType.touched && form.controls.accountType.invalid
+      "
+    >
+      <p *ngIf="form.controls.accountType.hasError('required')">
+        Type of Account is required
+      </p>
+    </div>
   </div>
 
   <ng-container [ngSwitch]="form.controls.accountType.value">
     <ng-container *ngSwitchCase="AccountType.Checking">
       <div
+        class="input"
         [class.error]="
           form.controls.checkingRoutingNumber.touched &&
           form.controls.checkingRoutingNumber.invalid
@@ -47,12 +75,33 @@
       >
         <label for="checkingRoutingNumber">Routing Number</label>
         <input
-          type="number"
+          type="tel"
           id="checkingRoutingNumber"
           formControlName="checkingRoutingNumber"
+          maxlength="9"
         />
+
+        <div
+          class="error-message"
+          *ngIf="
+            form.controls.checkingRoutingNumber.touched &&
+            form.controls.checkingRoutingNumber.invalid
+          "
+        >
+          <p *ngIf="form.controls.checkingRoutingNumber.hasError('required')">
+            Routing Number is required
+          </p>
+          <p *ngIf="form.controls.checkingRoutingNumber.hasError('pattern')">
+            Routing Number must contain only numbers
+          </p>
+          <p *ngIf="form.controls.checkingRoutingNumber.hasError('maxlength')">
+            Routing Number cannot be longer than 9 digits
+          </p>
+        </div>
       </div>
+
       <div
+        class="input"
         [class.error]="
           form.controls.checkingBankAccountNumber.touched &&
           form.controls.checkingBankAccountNumber.invalid
@@ -60,12 +109,32 @@
       >
         <label for="checkingBankAccountNumber">Bank Account Number</label>
         <input
-          type="number"
+          type="tel"
           id="checkingBankAccountNumber"
           formControlName="checkingBankAccountNumber"
         />
+        <div
+          class="error-message"
+          *ngIf="
+            form.controls.checkingBankAccountNumber.touched &&
+            form.controls.checkingBankAccountNumber.invalid
+          "
+        >
+          <p
+            *ngIf="form.controls.checkingBankAccountNumber.hasError('required')"
+          >
+            Bank Account Number is required
+          </p>
+          <p
+            *ngIf="form.controls.checkingBankAccountNumber.hasError('pattern')"
+          >
+            Bank Account Number must contain only numbers
+          </p>
+        </div>
       </div>
+
       <div
+        class="input"
         [class.error]="
           form.controls.checkingConfirmBankAccountNumber.touched &&
           form.controls.checkingConfirmBankAccountNumber.invalid
@@ -75,11 +144,36 @@
           >Confirm Bank Account Number</label
         >
         <input
-          type="number"
+          type="tel"
           id="checkingConfirmBankAccountNumber"
           formControlName="checkingConfirmBankAccountNumber"
         />
+        <div
+          class="error-message"
+          *ngIf="
+            form.controls.checkingConfirmBankAccountNumber.touched &&
+            form.controls.checkingConfirmBankAccountNumber.invalid
+          "
+        >
+          <p
+            *ngIf="
+              form.controls.checkingConfirmBankAccountNumber.hasError(
+                'required'
+              )
+            "
+          >
+            Bank Account Number is required
+          </p>
+          <p
+            *ngIf="
+              form.controls.checkingConfirmBankAccountNumber.hasError('pattern')
+            "
+          >
+            Bank Account Number must contain only numbers
+          </p>
+        </div>
       </div>
+
       <div class="helper">
         <p>Where can I find the routing and<br />account number?</p>
         <img src="./assets/check.png" alt="Checking Account Info" />
@@ -88,40 +182,119 @@
 
     <ng-container *ngSwitchCase="AccountType.Debit">
       <div
+        class="input"
         [class.error]="
           form.controls.ccCardNumber.touched &&
           form.controls.ccCardNumber.invalid
         "
       >
         <label for="ccCardNumber">Card Number</label>
-        <input type="number" id="ccCardNumber" formControlName="ccCardNumber" />
+        <input
+          type="tel"
+          id="ccCardNumber"
+          formControlName="ccCardNumber"
+          autocomplete="cc-number"
+        />
+        <div
+          class="error-message"
+          *ngIf="
+            form.controls.ccCardNumber.touched &&
+            form.controls.ccCardNumber.invalid
+          "
+        >
+          <p *ngIf="form.controls.ccCardNumber.hasError('required')">
+            Card Number is required
+          </p>
+          <p *ngIf="form.controls.ccCardNumber.hasError('pattern')">
+            Card Number must contain only numbers
+          </p>
+        </div>
       </div>
+
       <div
+        class="input"
         [class.error]="
           form.controls.ccNameOnCard.touched &&
           form.controls.ccNameOnCard.invalid
         "
       >
         <label for="ccNameOnCard">Name On Card</label>
-        <input type="text" id="ccNameOnCard" formControlName="ccNameOnCard" />
+        <input
+          type="text"
+          id="ccNameOnCard"
+          formControlName="ccNameOnCard"
+          autocomplete="cc-name"
+        />
+        <div
+          class="error-message"
+          *ngIf="
+            form.controls.ccNameOnCard.touched &&
+            form.controls.ccNameOnCard.invalid
+          "
+        >
+          <p *ngIf="form.controls.ccNameOnCard.hasError('required')">
+            Name On Card is required
+          </p>
+        </div>
       </div>
+
       <div
+        class="input"
         [class.error]="
           form.controls.ccExpiration.touched &&
           form.controls.ccExpiration.invalid
         "
       >
         <label for="ccExpiration">Expiration Date</label>
-        <input type="text" id="ccExpiration" formControlName="ccExpiration" />
+        <input
+          type="date"
+          id="ccExpiration"
+          formControlName="ccExpiration"
+          autocomplete="cc-exp"
+        />
+        <div
+          class="error-message"
+          *ngIf="
+            form.controls.ccExpiration.touched &&
+            form.controls.ccExpiration.invalid
+          "
+        >
+          <p *ngIf="form.controls.ccExpiration.hasError('required')">
+            Expiration Date is required
+          </p>
+        </div>
       </div>
+
       <div
+        class="input"
         [class.error]="
           form.controls.ccCVV.touched && form.controls.ccCVV.invalid
         "
       >
         <label for="ccCVV">CVV</label>
-        <input type="number" id="ccCVV" formControlName="ccCVV" />
+        <input
+          type="tel"
+          id="ccCVV"
+          formControlName="ccCVV"
+          autocomplete="cc-csc"
+          maxlength="3"
+        />
+        <div
+          class="error-message"
+          *ngIf="form.controls.ccCVV.touched && form.controls.ccCVV.invalid"
+        >
+          <p *ngIf="form.controls.ccCVV.hasError('required')">
+            CVV is required
+          </p>
+          <p *ngIf="form.controls.ccCVV.hasError('pattern')">
+            CVV must contain only numbers
+          </p>
+          <p *ngIf="form.controls.ccCVV.hasError('minlength')">
+            CVV must be at least 3 digits
+          </p>
+        </div>
       </div>
+
       <div class="helper">
         <p>Where can I find the CVV number?</p>
         <img src="./assets/cvv.png" alt="CVV Info" />
@@ -129,5 +302,12 @@
     </ng-container>
   </ng-container>
 
-  <button type="button" (click)="submit()" tabindex="0">Make Payment</button>
+  <button
+    type="button"
+    (click)="submit()"
+    tabindex="0"
+    [disabled]="this.form.invalid"
+  >
+    Make Payment
+  </button>
 </form>
