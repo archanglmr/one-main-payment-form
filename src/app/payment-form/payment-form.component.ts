@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-payment-form',
@@ -10,13 +10,14 @@ import { Subscription } from 'rxjs';
 export class PaymentFormComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
   private numbersOnlyValidator = Validators.pattern('^[0-9]*$');
+  private defaultAccountType = AccountType.Checking;
 
   protected readonly AccountType = AccountType;
   protected form = new FormGroup({
     loanNumber: new FormControl('', [this.numbersOnlyValidator, Validators.required]),
-    accountType: new FormControl(AccountType.Checking),
+    accountType: new FormControl(this.defaultAccountType),
 
-    checkingRoutingNumber: new FormControl('', [this.numbersOnlyValidator]),
+    checkingRoutingNumber: new FormControl('', [this.numbersOnlyValidator, Validators.maxLength(9)]),
     checkingBankAccountNumber: new FormControl('', [this.numbersOnlyValidator]),
     checkingConfirmBankAccountNumber: new FormControl('', [this.numbersOnlyValidator]),
 
@@ -28,7 +29,9 @@ export class PaymentFormComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit() {
-    this.form.controls.accountType.valueChanges.subscribe((value) => {
+    this.subscriptions.add(this.form.controls.accountType.valueChanges.pipe(
+      startWith(this.defaultAccountType)
+    ).subscribe((value) => {
       switch (value) {
         case AccountType.Checking:
           this.form.controls.checkingRoutingNumber.addValidators([Validators.required])
@@ -52,7 +55,7 @@ export class PaymentFormComponent implements OnInit, OnDestroy {
           this.form.controls.ccCVV.addValidators([Validators.required])
           break;
       }
-    });
+    }));
   }
 
   ngOnDestroy() {

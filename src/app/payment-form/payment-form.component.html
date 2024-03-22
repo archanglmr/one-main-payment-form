@@ -20,6 +20,7 @@
         id="accountTypeChecking"
         formControlName="accountType"
         [value]="AccountType.Checking"
+        tabindex="0"
       />
       <label for="accountTypeChecking" class="radio">Checking</label>
     </span>
@@ -30,6 +31,7 @@
         id="accountTypeDebit"
         formControlName="accountType"
         [value]="AccountType.Debit"
+        tabindex="0"
       />
       <label for="accountTypeDebit" class="radio">Debit Card</label>
     </span>
@@ -78,6 +80,10 @@
           formControlName="checkingConfirmBankAccountNumber"
         />
       </div>
+      <div class="helper">
+        <p>Where can I find the routing and<br />account number?</p>
+        <img src="./assets/check.png" alt="Checking Account Info" />
+      </div>
     </ng-container>
 
     <ng-container *ngSwitchCase="AccountType.Debit">
@@ -116,8 +122,12 @@
         <label for="ccCVV">CVV</label>
         <input type="number" id="ccCVV" formControlName="ccCVV" />
       </div>
+      <div class="helper">
+        <p>Where can I find the CVV number?</p>
+        <img src="./assets/cvv.png" alt="CVV Info" />
+      </div>
     </ng-container>
   </ng-container>
 
-  <button type="button" (click)="submit()">Make Payment</button>
+  <button type="button" (click)="submit()" tabindex="0">Make Payment</button>
 </form>
