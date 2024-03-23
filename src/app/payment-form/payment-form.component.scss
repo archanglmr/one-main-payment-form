@@ -1,0 +1,153 @@
+$border-color: #d0d5d8;
+
+:host {
+  display: block;
+}
+
+section.form {
+  border: 1px solid $border-color;
+  border-top: none;
+}
+
+div {
+  &.input {
+    border-top: 1px solid $border-color;
+    min-height: 58px;
+    padding-top: 9px;
+    text-indent: 7px;
+    box-sizing: border-box;
+
+    input {
+    }
+
+    &.error {
+      color: red;
+    }
+  }
+
+  &.error-message {
+    border-top: 1px solid $border-color;
+    background-color: #fae6e9;
+
+    p {
+      margin: 0;
+      padding: 4px;
+    }
+  }
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+
+  &.radio {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
+    vertical-align: middle;
+    margin: 0 0 0 5px;
+    text-indent: 0;
+  }
+}
+
+input {
+  &[type="radio"]{
+    vertical-align: middle;
+  }
+
+  &:not([type="radio"]) {
+    width: 100%;
+    font-size: 14px;
+    line-height: 14px;
+    border: none;
+    box-sizing: border-box;
+    margin-bottom: 9px;
+    text-indent: 7px;
+
+    &:focus {
+      outline: none;
+      border-color: #00a39e;
+    }
+  }
+}
+
+span {
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: middle;
+
+  &:not(:last-child) {
+    margin-right: 26px;
+  }
+}
+
+.helpers {
+  border-top: 1px solid $border-color;
+  background-color: #f4f7fc;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500;
+  text-align: center;
+  padding: 17px 25px;
+
+  p {
+    margin: 0 0 15px 0;
+    padding: 0;
+  }
+}
+
+button {
+  margin-top: 21px;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #00a39e;
+
+  border: none;
+  color: white;
+  padding: 19px 48px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: #d3d3d3;
+    cursor: not-allowed;
+  }
+}
+
+
+
+
+@media screen and (min-width: 768px) {
+  :host {
+    max-width: 650px;
+  }
+
+  .layout {
+    display: flex;
+
+    > * {
+      flex: 1;
+    }
+  }
+
+  .exp-cvv {
+    display: flex;
+    > * {
+      flex: 1;
+    }
+  }
+
+  .input.cvv,
+  .helpers {
+    border-left: 1px solid $border-color;
+  }
+
+  .helpers {
+    width: 290px;
+  }
+}
